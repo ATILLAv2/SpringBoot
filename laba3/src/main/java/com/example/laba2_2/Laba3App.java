@@ -1,13 +1,11 @@
-package ru.arkhipov.MyFirstTestAppSpringBoot;
+package com.example.laba2_2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyFirstTestAppSpringBootApplication {
-
+public class Laba3App {
 	public static void main(String[] args) {
-		SpringApplication.run(MyFirstTestAppSpringBootApplication.class, args);
+		SpringApplication.run(Laba3App.class, args);
 	}
-
 }

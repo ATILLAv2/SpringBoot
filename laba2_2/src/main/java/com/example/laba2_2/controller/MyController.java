@@ -3,6 +3,7 @@ package com.example.laba2_2.controller;
 import com.example.laba2_2.exception.UnsupportedCodeException;
 import com.example.laba2_2.exception.ValidationFailedException;
 import com.example.laba2_2.model.*;
+import com.example.laba2_2.service.ModifyRequestService;
 import com.example.laba2_2.service.ModifyResponseService;
 import com.example.laba2_2.service.ValidationService;
 import com.example.laba2_2.util.DateTimeUtil;
@@ -26,14 +27,21 @@ public class MyController {
     private final ValidationService validationService;
     private final ModifyResponseService modifySystemTimeResponseService;
     private final ModifyResponseService modifyOperationUidResponseService;
+    private final ModifyRequestService modifySourceRequestService;
+    private final ModifyRequestService modifyRequestServiceRestTemplate;
 
     @Autowired
-    public MyController(ValidationService validationService,
-                        @Qualifier("ModifySystemTimeResponseService") ModifyResponseService modifySystemTimeResponseService,
-                        @Qualifier("ModifyOperationUidResponseService") ModifyResponseService modifyOperationUidResponseService) {
+    public MyController(
+            ValidationService validationService,
+            @Qualifier("ModifySystemTimeResponseService") ModifyResponseService modifySystemTimeResponseService,
+            @Qualifier("ModifyOperationUidResponseService") ModifyResponseService modifyOperationUidResponseService,
+            @Qualifier("ModifySourceRequestService") ModifyRequestService modifySourceRequestService,
+            @Qualifier("ModifyRequestServiceRestTemplate") ModifyRequestService modifyRequestServiceRestTemplate) {
         this.validationService = validationService;
         this.modifySystemTimeResponseService = modifySystemTimeResponseService;
         this.modifyOperationUidResponseService = modifyOperationUidResponseService;
+        this.modifySourceRequestService = modifySourceRequestService;
+        this.modifyRequestServiceRestTemplate = modifyRequestServiceRestTemplate;
     }
 
     @PostMapping(value = "/feedback")
@@ -73,6 +81,10 @@ public class MyController {
             response.setErrorMessage(ErrorMessages.UNKNOWN_ERROR);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        modifySourceRequestService.modify(request);
+
+        modifyRequestServiceRestTemplate.modify(request);
 
         modifySystemTimeResponseService.modify(response);
         modifyOperationUidResponseService.modify(response);

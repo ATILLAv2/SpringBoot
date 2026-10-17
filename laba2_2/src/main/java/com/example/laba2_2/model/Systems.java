@@ -1,5 +1,6 @@
 package com.example.laba2_2.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Systems {
@@ -18,8 +19,19 @@ public enum Systems {
         return description;
     }
 
+    @JsonCreator
+    public static Systems fromValue(String value) {
+        for (Systems s : Systems.values()) {
+            if (s.name().equalsIgnoreCase(value)
+                    || s.description.equalsIgnoreCase(value)) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException("Неизвестное значение systemName: " + value);
+    }
+
     @Override
     public String toString() {
-        return description;
+        return name();
     }
 }
