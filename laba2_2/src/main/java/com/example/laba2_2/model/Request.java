@@ -1,6 +1,7 @@
 package com.example.laba2_2.model;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,37 +13,49 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Request {
 
-    @NotBlank
-    @Size(max = 32)
+    @NotBlank(message = "UID не может быть пустым")
     private String uid;
 
-    @NotBlank
-    @Size(max = 32)
     private String operationUid;
 
     private Systems systemName;
 
-    @NotBlank
     private String systemTime;
 
     private String source;
 
-    @NotNull
-    @Min(1)
-    @Max(100000)
-    private int communicationId;
+    @NotNull(message = "Позиция не может быть пустой")
+    private Positions position;
 
-    private int templateId;
-    private int productCode;
-    private int smsCode;
+    @NotNull(message = "Зарплата не может быть пустой")
+    private Double salary;
+
+    @NotNull(message = "Премия не может быть пустой")
+    private Double bonus;
+
+    @NotNull(message = "Количество дней не может быть пустым")
+    private Integer workDays;
+
+    private Integer communicationId;
+
+    private Integer templateId;
+
+    private Integer productCode;
+
+    private Integer smsCode;
+
     @Override
     public String toString() {
         return "{" +
                 "uid='" + uid + '\'' +
                 ", operationUid='" + operationUid + '\'' +
-                ", systemName='" + systemName + '\'' +
+                ", systemName=" + systemName +
                 ", systemTime='" + systemTime + '\'' +
                 ", source='" + source + '\'' +
+                ", position=" + position +
+                ", salary=" + salary +
+                ", bonus=" + bonus +
+                ", workDays=" + workDays +
                 ", communicationId=" + communicationId +
                 ", templateId=" + templateId +
                 ", productCode=" + productCode +

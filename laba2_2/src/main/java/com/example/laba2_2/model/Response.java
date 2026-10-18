@@ -8,9 +8,24 @@ import lombok.Data;
 public class Response {
 
     private String uid;
+
     private String operationUid;
+
     private String systemTime;
+
     private Codes code;
+
     private ErrorCodes errorCode;
+
     private ErrorMessages errorMessage;
+
+    private Double salary;
+
+    private Double bonus;
+
+    private Integer workDays;
+
+    private Double annualBonus;
+
+    private Double quarterlyBonus;
 }
